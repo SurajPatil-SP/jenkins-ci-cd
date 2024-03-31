@@ -33,7 +33,7 @@ pipeline{
         stage("Build Image") {
             steps{
                 script{
-                    bat 'docker build -t ${IMAGE_NAME}:${IMAGE_TAG} .'
+                    bat 'docker build -t %IMAGE_NAME%:%IMAGE_TAG% .'
                 }
             }
         }
@@ -43,7 +43,7 @@ pipeline{
                 withCredentials([string(credentialsId: 'docker-cred', variable: 'docker-cred')]) {
                     echo 'docker login -u surajbpatil -p %docker-cred%'
                     bat 'docker login -u surajbpatil -p %docker-cred%'
-                    bat 'docker push ${IMAGE_NAME}:${IMAGE_TAG}'
+                    bat 'docker push %IMAGE_NAME%:%IMAGE_TAG%'
                 }
             }
         }
